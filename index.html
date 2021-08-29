@@ -5,16 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Matrix Effect | One Night Challenge</title>
     <script src="matrix.js" defer></script>
-    <style>
-      .page {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <div class="page"></div>
+    <header>
+      <img class="animation-pic" src="images/late-night-lg.gif" />
+      <h1 class="page-heading">
+        One Night <br /><span class="header-hightlight">Challenge</span>
+      </h1>
+    </header>
+
+    <div class="page">
+      <div class="readme">
+        I challenge myself to create finished project over one evening
+      </div>
+      <div class="card">
+        <div class="card__text">
+          <h2 class="card__title">
+            <a href="matrix/">Matrix Effect</a>
+          </h2>
+          <p class="card__description">
+            Fullscreen "matrix code" effect written with Canvas API. Work with
+            same speed on all devices, if CPU not fast enough frames are
+            skipped, but position and speed of movement are stable.
+          </p>
+        </div>
+        <div class="card__image">
+          <a href="matrix/">
+            <img src="images/matrix.png" />
+          </a>
+        </div>
+      </div>
+      <div class="card card--reverse">
+        <div class="card__text">
+          <h2 class="card__title">
+            <a href="/">One Night Challenge Page</a>
+          </h2>
+          <p class="card__description">
+            Current page was also created during
+            <strong>One Night Challenge</strong>. It started from animated GIF
+            of me workig late night in a header. Thats how I decide about
+            overall style of this page.
+          </p>
+        </div>
+        <div class="card__image">
+          <a href="/">
+            <img src="images/one-night.png" />
+          </a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

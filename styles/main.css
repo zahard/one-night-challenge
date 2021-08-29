@@ -1,0 +1,142 @@
+:root {
+  --bg-color: #2d1b2e;
+  --color-darkgrey: #574b67;
+  --color-light: #f9f4ea;
+  --color-blue: #3cc2fa;
+  --color-cyan: #9af6fd;
+  --color-yellow: #f7db53;
+  --color-orange: #f2a759;
+  --color-mocka: #d3c0a8;
+  --color-purple: #4a247c;
+  --color-pink: #f272ce;
+}
+
+html,
+* {
+  font-family: "Roboto Slab", serif;
+}
+
+body {
+  color: var(--color-light);
+  color: #fff;
+  background: var(--bg-color);
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.tab-content {
+  width: 360px;
+  height: 240px;
+}
+
+.animation-pic {
+  width: 320px;
+  height: 160px;
+}
+
+.page {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  margin-bottom: 1.5rem;
+}
+
+.page-heading {
+  font-size: 4rem;
+  color: var(--color-mocka);
+  font-weight: 600;
+}
+
+.header-hightlight {
+  color: var(--color-orange);
+}
+
+.readme {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--color-pink);
+}
+
+.card {
+  background-color: var(--color-darkgrey);
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.card.card--reverse {
+  flex-direction: row-reverse;
+}
+
+.card a {
+  color: var(--color-yellow);
+}
+
+.card__description {
+}
+.card__description strong {
+  font-weight: 600;
+  color: var(--color-mocka);
+}
+
+.card__title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.card__image {
+  max-width: 360px;
+  flex: 0 0 360px;
+  margin: 0 auto;
+}
+
+.card__image a {
+  display: inline-block;
+}
+
+.card__image img {
+  max-width: 100%;
+}
+
+.card__text {
+  flex: 1 0 320px;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin: 0 1rem 1rem 0;
+}
+
+.card--reverse .card__text {
+  margin: 0 0 1rem 1rem;
+}
+
+@media only screen and (max-width: 420px) {
+  .page-heading {
+    margin-top: 1rem;
+  }
+  .card {
+    border-radius: 0;
+    padding: 2rem;
+  }
+  .card,
+  .card.card--reverse {
+    flex-direction: column;
+  }
+  .card__image {
+    flex: auto;
+  }
+}
