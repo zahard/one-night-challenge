@@ -68,6 +68,41 @@ window.onload = function () {
     }
   }
 
+  let prevTouch = {
+    x: 0,
+    y: 0,
+  };
+  const canvasOffset = {
+    y: cnv.offsetTop,
+    x: cnv.offsetLeft,
+  };
+
+  const mobileSizeZoom = cnv.width / window.innerWidth;
+
+  cnv.addEventListener("touchstart", (e) => {
+    cursorVisible = true;
+    const touch = e.touches[0];
+    prevTouch = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+  });
+  cnv.addEventListener("touchend", (e) => {
+    cursorVisible = false;
+  });
+  cnv.addEventListener("touchmove", (e) => {
+    const touch = e.touches[0];
+
+    cursorPosition.x = (touch.clientX - canvasOffset.x) * mobileSizeZoom;
+    cursorPosition.y = (touch.clientY - canvasOffset.y) * mobileSizeZoom;
+
+    movementVector.x = prevTouch.x - touch.clientX;
+    movementVector.y = prevTouch.y - touch.clientY;
+
+    prevTouch.x = touch.clientX;
+    prevTouch.y = touch.clientY;
+  });
+
   cnv.addEventListener("mousemove", (e) => {
     cursorPosition.x = e.offsetX;
     cursorPosition.y = e.offsetY;
@@ -85,6 +120,7 @@ window.onload = function () {
   });
 
   const cursorImpactCheck = function (circleEl) {
+    const isTouching = circleEl.touching(cursorPosition);
     if (circleEl.touching(cursorPosition)) {
       circleEl.setMoving(true);
       const impactSpeed = getImpactSpeed(
@@ -121,7 +157,7 @@ window.onload = function () {
     ctx.clearRect(0, 0, cnv.width, cnv.height);
     circles.forEach((circle) => circle.draw());
     if (cursorVisible) {
-      //drawCircle(cursorPosition.x, cursorPosition.y, cursorPosition.r);
+      // drawCircle(cursorPosition.x, cursorPosition.y, cursorPosition.r);
     }
   };
 
