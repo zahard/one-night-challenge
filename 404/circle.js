@@ -11,6 +11,8 @@ class Circle {
     };
   }
 
+  update() {}
+
   draw() {
     const color = this.isMoving ? "green" : "blue";
     ctx.save();
@@ -24,10 +26,13 @@ class Circle {
   touching(cursor) {
     if (
       Math.max(Math.abs(cursor.x - this.x), Math.abs(cursor.y - this.y)) >
-      this.r + 25
+      this.r + cursor.r
     ) {
       return false;
     }
-    return Vertaxis.distance2(this, cursor) <= 1600;
+    return (
+      Vertaxis.distance2(this, cursor) <=
+      (this.r + cursor.r) * (this.r + cursor.r)
+    );
   }
 }
