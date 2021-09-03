@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 | One Night Challenge</title>
+    <script src="vertaxis.js" defer></script>
+    <script src="circle.js" defer></script>
+    <script src="404.js" defer></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+
+      .page {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        flex-direction: column;
+      }
+      .container {
+      }
+
+      .container canvas {
+        border: 2px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="container"></div>
+      <div class="details">
+        <div class="data-offset" style="cursor: pointer">
+          Offset XY: <span></span>
+        </div>
+        <div class="data-movement">Movement XY: <span></span></div>
+      </div>
+    </div>
+  </body>
+</html>
