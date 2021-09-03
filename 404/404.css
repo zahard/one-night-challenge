@@ -36,6 +36,13 @@ h3 {
 }
 
 @media only screen and (max-width: 420px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+  body {
+    position: relative;
+  }
   h3 {
     font-size: 14px;
     text-align: center;

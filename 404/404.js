@@ -86,6 +86,7 @@ window.onload = function () {
       x: touch.clientX,
       y: touch.clientY,
     };
+    e.preventDefault();
   });
   cnv.addEventListener("touchend", (e) => {
     cursorVisible = false;
