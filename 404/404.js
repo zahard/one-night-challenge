@@ -97,8 +97,8 @@ window.onload = function () {
     cursorPosition.x = (touch.clientX - canvasOffset.x) * mobileSizeZoom;
     cursorPosition.y = (touch.clientY - canvasOffset.y) * mobileSizeZoom;
 
-    movementVector.x = prevTouch.x - touch.clientX;
-    movementVector.y = prevTouch.y - touch.clientY;
+    movementVector.x = touch.clientX - prevTouch.x;
+    movementVector.y = touch.clientY - prevTouch.y;
 
     prevTouch.x = touch.clientX;
     prevTouch.y = touch.clientY;
