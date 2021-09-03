@@ -9,6 +9,7 @@
   --color-mocka: #d3c0a8;
   --color-purple: #4a247c;
   --color-pink: #f272ce;
+  --color-red: #f04156;
 }
 
 html,
@@ -39,6 +40,7 @@ div {
 .page {
   max-width: 1024px;
   margin: 0 auto;
+  padding: 0 30px;
 }
 
 header {
@@ -125,6 +127,9 @@ header {
 }
 
 @media only screen and (max-width: 420px) {
+  .page {
+    padding: 0 10px;
+  }
   .page-heading {
     margin-top: 1rem;
   }

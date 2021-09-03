@@ -4,20 +4,24 @@ window.onload = function () {
   const cnvWidth = 960;
   const cnvHeight = 480;
   cnv.width = 960;
-  cnv.height = 480;
+  cnv.height = 800;
   ctx = cnv.getContext("2d");
   ctx.clearRect(0, 0, cnv.width, cnv.height);
 
-  const cursorPosition = { x: 0, y: 0, r: 50 };
+  const cursorPosition = { x: 0, y: 0, r: 60 };
   const movementVector = { x: 0, y: 0 };
   let cursorVisible = false;
 
   // 14 by 5 grid each 40 pixels and 20px offset from side
   const dataOffset = {
-    x: 150,
-    y: 120,
+    x: 180,
+    y: 40,
   };
-  const data = [
+  const tileSize = 40;
+  const tileGap = 4;
+
+  // 404
+  let data = [
     [1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1],
     [1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1],
     [1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1],
@@ -25,14 +29,40 @@ window.onload = function () {
     [0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1],
   ];
 
+  // Mario
+  data = [
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 2, 2, 2, 3, 3, 3, 4, 3, 0, 0, 0],
+    [0, 2, 3, 2, 3, 3, 3, 3, 4, 3, 3, 3, 0],
+    [0, 2, 3, 2, 2, 3, 3, 3, 3, 4, 3, 3, 3],
+    [0, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 0],
+    [0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0],
+    [0, 0, 1, 1, 5, 1, 1, 1, 1, 0, 0, 0, 0],
+    [0, 1, 1, 1, 5, 1, 1, 5, 1, 1, 1, 0, 0],
+    [1, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 0],
+    [3, 3, 1, 5, 6, 5, 5, 6, 5, 1, 3, 3, 0],
+    [3, 3, 3, 5, 5, 5, 5, 5, 5, 3, 3, 3, 0],
+    [3, 3, 5, 5, 5, 5, 5, 5, 5, 5, 3, 3, 0],
+    [0, 0, 5, 5, 5, 0, 0, 5, 5, 5, 0, 0, 0],
+    [0, 2, 2, 2, 0, 0, 0, 0, 2, 2, 2, 0, 0],
+    [2, 2, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0],
+  ];
+
   const circles = [];
 
   for (let i = 0; i < data.length; i++) {
     const row = data[i];
     for (let j = 0; j < row.length; j++) {
-      if (row[j] === 1) {
+      if (row[j] > 0) {
         circles.push(
-          new Circle(ctx, dataOffset.x + j * 50, dataOffset.y + i * 50)
+          new Circle(
+            ctx,
+            tileSize,
+            dataOffset.x + j * (tileSize + tileGap),
+            dataOffset.y + i * (tileSize + tileGap),
+            row[j]
+          )
         );
       }
     }
@@ -44,27 +74,19 @@ window.onload = function () {
 
     movementVector.x = e.movementX;
     movementVector.y = e.movementY;
-
-    // update();
   });
 
-  cnv.addEventListener("mouseleave", (e) => {
+  cnv.addEventListener("mouseleave", () => {
     cursorVisible = false;
   });
 
-  cnv.addEventListener("mouseenter", (e) => {
+  cnv.addEventListener("mouseenter", () => {
     cursorVisible = true;
   });
 
-  const update = function () {
-    circles.forEach((circleEl) => {
-      cursorImpactCheck(circleEl);
-    });
-  };
-
   const cursorImpactCheck = function (circleEl) {
     if (circleEl.touching(cursorPosition)) {
-      circleEl.isMoving = true;
+      circleEl.setMoving(true);
       const impactSpeed = getImpactSpeed(
         cursorPosition,
         circleEl,
@@ -77,66 +99,29 @@ window.onload = function () {
   };
 
   const tick = function () {
-    for (let index = 0; index < circles.length; index++) {
-      const circle = circles[index];
-
-      cursorImpactCheck(circle);
-
-      if (circle.isMoving) {
-        const originDirection = getDirection(circle, circle.origin);
-
-        let gravityMagnitude = 0.5;
-
-        const gravityForce = {
-          x: Math.cos(originDirection) * gravityMagnitude,
-          y: Math.sin(originDirection) * gravityMagnitude,
-        };
-
-        circle.speed.x +=
-          Math.abs(gravityForce.x) * Vertaxis.sign(gravityForce.x);
-        circle.speed.y +=
-          Math.abs(gravityForce.y) * Vertaxis.sign(gravityForce.y);
-
-        circle.speed.x =
-          (Math.abs(circle.speed.x) - 0.15) * Vertaxis.sign(circle.speed.x);
-        circle.speed.y =
-          (Math.abs(circle.speed.y) - 0.15) * Vertaxis.sign(circle.speed.y);
-
-        circle.x += circle.speed.x;
-        circle.y += circle.speed.y;
-
-        const xPosReached =
-          Math.abs(circle.x - circle.origin.x) < 1 &&
-          Math.abs(circle.speed.x) < 1;
-
-        const yPosReached =
-          Math.abs(circle.y - circle.origin.y) < 1 &&
-          Math.abs(circle.speed.y) < 1;
-
-        if (xPosReached) {
-          circle.x = circle.origin.x;
-        }
-        if (yPosReached) {
-          circle.y = circle.origin.y;
-        }
-
-        if (xPosReached && yPosReached) {
-          circle.isMoving = false;
-        }
-      }
-    }
-
+    update();
     draw();
-
     requestAnimationFrame(tick, cnv);
   };
   requestAnimationFrame(tick, cnv);
+
+  const update = function () {
+    for (let index = 0; index < circles.length; index++) {
+      const circle = circles[index];
+      if (cursorVisible) {
+        cursorImpactCheck(circle);
+      }
+      if (circle.isMoving) {
+        circle.update();
+      }
+    }
+  };
 
   const draw = function () {
     ctx.clearRect(0, 0, cnv.width, cnv.height);
     circles.forEach((circle) => circle.draw());
     if (cursorVisible) {
-      drawCircle(cursorPosition.x, cursorPosition.y, cursorPosition.r);
+      //drawCircle(cursorPosition.x, cursorPosition.y, cursorPosition.r);
     }
   };
 
@@ -147,20 +132,6 @@ window.onload = function () {
     ctx.arc(x, y, r, 0, 2 * Math.PI, false);
     ctx.fill();
     ctx.restore();
-  }
-
-  function getDirection(point, origin) {
-    const vector = {
-      x: origin.x - point.x,
-      y: origin.y - point.y,
-    };
-    const direction = angle(vector);
-
-    return direction;
-  }
-
-  function angle(vector) {
-    return Math.atan2(vector.y, vector.x);
   }
 
   function getImpactSpeed(impactPos, circle, movement) {

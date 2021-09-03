@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <title>404 | One Night Challenge</title>
     <script src="vertaxis.js" defer></script>
     <script src="circle.js" defer></script>
@@ -11,6 +17,11 @@
       html,
       body {
         margin: 0;
+      }
+
+      body {
+        background: #2d1b2e;
+        font-family: "Press Start 2P", cursive;
       }
 
       .page {
@@ -25,19 +36,28 @@
       }
 
       .container canvas {
-        border: 2px solid #333;
+        background-color: #111;
+      }
+      .action {
+        color: #f04156;
+      }
+      h2 {
+        color: #f2a759;
+        font-size: 48px;
+        margin-bottom: 10px;
+      }
+      h3 {
+        color: #f9f4ea;
+        font-size: 22px;
       }
     </style>
   </head>
   <body>
     <div class="page">
+      <h2>THANK YOU MARIO</h2>
+      <h3>BUT OUR PRINCESS IS IN ANOTHER CASTLE</h3>
       <div class="container"></div>
-      <div class="details">
-        <div class="data-offset" style="cursor: pointer">
-          Offset XY: <span></span>
-        </div>
-        <div class="data-movement">Movement XY: <span></span></div>
-      </div>
+      <h3 class="action">DON'T BE A GUMBA - BREAK MARIO WITH CURSOR</h3>
     </div>
   </body>
 </html>
